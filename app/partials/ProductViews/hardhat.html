@@ -5,7 +5,7 @@
             <div class="panel panel-primary">
                 <div class="panel-body">
                     <h4 ng-show="LineItem.Product.ExternalID" class="text-info" style="margin:0;">
-                        {{LineItem.Product.ExternalID}}
+                        {{LineItem.Product.ExternalID}} | {{LineItem.Variant.Name}}
                     </h4>
                     <p><img ng-src="{{LineItem.Product.SmallImageUrl}}" /></p>
                     <p ng-bind-html="trustedDescription(LineItem.Product)" />
@@ -13,20 +13,23 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4 col-collapse" ng-hide="!Variant.PreviewUrl">
+        <div class="col-md-4 col-collapse" ng-hide="!LineItem.Variant.PreviewUrl">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <figure>
-                        <img ng-src="{{Variant.PreviewUrl}}" />
+                        <img ng-src="{{LineItem.Variant.PreviewUrl}}" />
                     </figure>
                 </div>
             </div>
         </div>
         <form name="addToOrderForm" novalidate="">
-            <div class="form-group" ng-repeat="s in LineItem.Specs | onproperty:[{Property: 'CanSetForLineItem', Value: true}, {Property: 'DefinesVariant', Value: true}]">
+            <div class="form-group" ng-repeat="s in LineItem.Variant.Specs | onproperty:[{Property: 'CanSetForLineItem', Value: false}, {Property: 'DefinesVariant', Value: false}]">
                 <customfilefield customfield="s" ng-if="s.ControlType == 'File'"></customfilefield>
                 <customtextfield customfield="s" ng-if="s.ControlType == 'Text'"></customtextfield>
                 <customselectionfield change="specChanged" customfield="s" ng-if="s.ControlType == 'Selection'"></customselectionfield>
+            </div>
+            <div class="panel-footer">
+                <button class="btn btn-primary pull-right" type="submit" ng-click="save()">Save</button>
             </div>
         </form>
     </div>

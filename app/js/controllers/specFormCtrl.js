@@ -18,8 +18,8 @@ four51.app.controller('SpecFormCtrl', function ($location,$route, $routeParams, 
 				}
 			});
 		}
+	});
 
-	})
 	$scope.save = function(){
 		Variant.save($scope.Variant, function(data){
 			//if(!varID)
