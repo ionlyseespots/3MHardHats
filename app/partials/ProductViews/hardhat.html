@@ -1,9 +1,33 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-
-</body>
-</html>
+<section id="451_area_prod_desc" class="container product-view-default">
+    <div class="col-md-7 col-md-offset-1 col-collapse">
+        <div ng-show="LineItem.Product.Description">
+            <!-- PRODUCT DESCRIPTION PANEL! --->
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <h4 ng-show="LineItem.Product.ExternalID" class="text-info" style="margin:0;">
+                        {{LineItem.Product.ExternalID}}
+                    </h4>
+                    <p><img ng-src="{{LineItem.Product.SmallImageUrl}}" /></p>
+                    <p ng-bind-html="trustedDescription(LineItem.Product)" />
+                    <p ng-show="LineItem.Variant.Description" ng-bind-html="trustedDescription(LineItem.Variant)" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-collapse" ng-hide="!Variant.PreviewUrl">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <figure>
+                        <img ng-src="{{Variant.PreviewUrl}}" />
+                    </figure>
+                </div>
+            </div>
+        </div>
+        <form name="addToOrderForm" novalidate="">
+            <div class="form-group" ng-repeat="s in LineItem.Specs | onproperty:[{Property: 'CanSetForLineItem', Value: true}, {Property: 'DefinesVariant', Value: true}]">
+                <customfilefield customfield="s" ng-if="s.ControlType == 'File'"></customfilefield>
+                <customtextfield customfield="s" ng-if="s.ControlType == 'Text'"></customtextfield>
+                <customselectionfield change="specChanged" customfield="s" ng-if="s.ControlType == 'Selection'"></customselectionfield>
+            </div>
+        </form>
+    </div>
+</section>
