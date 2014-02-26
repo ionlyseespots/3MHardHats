@@ -135,4 +135,10 @@ four51.app.controller('HardHatCtrl', function ($scope, $location, Product, Produ
 			$scope.LineItem.Variant = data;
 		});
 	});
+	$scope.$watch('LineItem.Variant.Specs.CustomerName.Value', function(n,o) {
+		Variant.save($scope.LineItem.Variant, function(data){
+			data.PreviewUrl += guid();
+			$scope.LineItem.Variant = data;
+		});
+	});
 });

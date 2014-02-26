@@ -7,8 +7,7 @@ four51.app.directive('customtextfield', function($451) {
         transclude: true,
         templateUrl: 'partials/controls/customTextField.html',
 	    controller: function($scope) {
-			if (!$scope.customfield.Value && $scope.customfield.DefaultValue)
-				$scope.customfield.Value = $scope.customfield.DefaultValue;
+
 	    }
     }
     return obj;

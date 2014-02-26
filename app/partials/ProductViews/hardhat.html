@@ -38,23 +38,19 @@
                     <div style="min-width: 50px; min-height: 50px; background-color: yellow;" ng-click="changeColor(1)">&nbsp;</div>
                     <div style="min-width: 50px; min-height: 50px; background-color: blue;" ng-click="changeColor(2)">&nbsp;</div>
                     <div style="min-width: 50px; min-height: 50px; background-color: green;" ng-click="changeColor(3)">&nbsp;</div>
-                </div>
-                <div class="form-group">
-                    <span>Orientation</span>
                     <p><i class="fa fa-arrow-left fa-4x" ng-click="changeOrient(1)" /></p>
                     <p><i class="fa fa-arrow-right fa-4x" ng-click="changeOrient(-1)" /></p>
-                </div>
-                <div class="form-group" ng-repeat="s in LineItem.Variant.Specs | onproperty:[{Property: 'CanSetForLineItem', Value: false}, {Property: 'DefinesVariant', Value: false}]">
-                    <customfilefield customfield="s" ng-if="s.ControlType == 'File'"></customfilefield>
-                    <customtextfield customfield="s" ng-if="s.ControlType == 'Text'"></customtextfield>
-                    <customselectionfield change="change" customfield="s" ng-if="s.ControlType == 'Selection'"></customselectionfield>
-                </div>
-                <div>
-                    <div class="form-group" ng-repeat="s in LineItem.Product.Specs | onproperty:[{Property: 'CanSetForLineItem', Value: true}, {Property: 'DefinesVariant', Value: true}]">
-                        <customfilefield customfield="s" ng-if="s.ControlType == 'File'"></customfilefield>
-                        <customtextfield customfield="s" ng-if="s.ControlType == 'Text'"></customtextfield>
-                        <customselectionfield change="change" customfield="s" ng-if="s.ControlType == 'Selection'"></customselectionfield>
-                    </div>
+                    <customfilefield customfield="LineItem.Variant.Specs.LogoFront"></customfilefield>
+                    <customfilefield customfield="LineItem.Variant.Specs.LogoRight"></customfilefield>
+                    <customfilefield customfield="LineItem.Variant.Specs.LogoLeft"></customfilefield>
+                    <customfilefield customfield="LineItem.Variant.Specs.LogoBack"></customfilefield>
+                    <label>Customer Name: </label><customtextfield customfield="LineItem.Variant.Specs.CustomerName"></customtextfield>
+                    <label>Distributor PO#: </label><customtextfield customfield="LineItem.Variant.Specs.DistributorPO"></customtextfield>
+                    <p>Distributor Information:</p>
+                    <label>Name: </label><customtextfield customfield="LineItem.Variant.Specs.DistributorName"></customtextfield>
+                    <label>Contact: </label><customtextfield customfield="LineItem.Variant.Specs.DistributorContact"></customtextfield>
+                    <label>Phone: </label><customtextfield customfield="LineItem.Variant.Specs.DistributorPhone"></customtextfield>
+                    <label>Email: </label><customtextfield customfield="LineItem.Variant.Specs.DistributorEmail"></customtextfield>
                 </div>
                 <div class="panel-footer">
                     <button class="btn btn-primary pull-right" type="submit" ng-click="save()">Save</button>
