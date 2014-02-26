@@ -34,7 +34,7 @@
                                 </div>
                                 <div class="col-xs-6 col-sm-12 col-md-6 text-center" ng-show="item.Variant.SmallImageUrl || item.Product.SmallImageUrl">
                                     <figure>
-                                        <img class="view-thumbnail" ng-src="{{item.Product.SmallImageUrl || item.Variant.SmallImageUrl}}" />
+                                        <img class="view-thumbnail" ng-src="{{item.Variant.PreviewUrl || item.Product.SmallImageUrl || item.Variant.SmallImageUrl}}" />
                                     </figure>
                                 </div>
                             </div>

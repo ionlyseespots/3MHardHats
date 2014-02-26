@@ -5,7 +5,7 @@
             <div class="panel panel-primary">
                 <div class="panel-body">
                     <h4 ng-show="LineItem.Product.ExternalID" class="text-info" style="margin:0;">
-                        {{LineItem.Product.ExternalID}} | {{LineItem.Variant.Name}}
+                        {{LineItem.Product.ExternalID}}
                     </h4>
                     <p><img ng-src="{{LineItem.Product.SmallImageUrl}}" /></p>
                     <p ng-bind-html="trustedDescription(LineItem.Product)" />
@@ -13,7 +13,15 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4 col-collapse" ng-hide="!LineItem.Variant.PreviewUrl">
+        <div class="col-sm-2 view-form-icon">
+            <quantityfield required="false" calculated="calcVariantLineItems" lineitem="LineItem" class="quantity" />
+        </div>
+        <div class="col-sm-2">
+            <div  style="border: 1px solid #d6d6d6;text-align: center;height: 52px;" ng-show="LineItem.LineTotal > 0">
+                <small><span class="text-info">Total</span><br /><span class=" text-success">{{LineItem.LineTotal | currency}}</span></small>
+            </div>
+        </div>
+        <div class="col-md-4" ng-hide="!LineItem.Variant.PreviewUrl">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <figure>
@@ -22,16 +30,38 @@
                 </div>
             </div>
         </div>
-        <form name="addToOrderForm" novalidate="">
-            <div class="form-group" ng-repeat="s in LineItem.Variant.Specs | onproperty:[{Property: 'CanSetForLineItem', Value: false}, {Property: 'DefinesVariant', Value: false}]">
-                <customfilefield customfield="s" ng-if="s.ControlType == 'File'"></customfilefield>
-                <customtextfield customfield="s" ng-if="s.ControlType == 'Text'"></customtextfield>
-                <customselectionfield change="specChanged" customfield="s" ng-if="s.ControlType == 'Selection'"></customselectionfield>
-            </div>
-            <div class="panel-footer">
-                <button class="btn btn-primary pull-right" type="submit" ng-click="save()">Save</button>
-            </div>
-        </form>
+        <div class="col-md-4 col-collapse">
+            <form name="addToOrderForm" novalidate="">
+                <div class="form-group">
+                    <span>Choose your color</span>
+                    <div style="min-width: 50px; min-height: 50px; background-color: white;" ng-click="changeColor(0)">&nbsp;</div>
+                    <div style="min-width: 50px; min-height: 50px; background-color: yellow;" ng-click="changeColor(1)">&nbsp;</div>
+                    <div style="min-width: 50px; min-height: 50px; background-color: blue;" ng-click="changeColor(2)">&nbsp;</div>
+                    <div style="min-width: 50px; min-height: 50px; background-color: green;" ng-click="changeColor(3)">&nbsp;</div>
+                </div>
+                <div class="form-group">
+                    <span>Orientation</span>
+                    <p><i class="fa fa-arrow-left fa-4x" ng-click="changeOrient(1)" /></p>
+                    <p><i class="fa fa-arrow-right fa-4x" ng-click="changeOrient(-1)" /></p>
+                </div>
+                <div class="form-group" ng-repeat="s in LineItem.Variant.Specs | onproperty:[{Property: 'CanSetForLineItem', Value: false}, {Property: 'DefinesVariant', Value: false}]">
+                    <customfilefield customfield="s" ng-if="s.ControlType == 'File'"></customfilefield>
+                    <customtextfield customfield="s" ng-if="s.ControlType == 'Text'"></customtextfield>
+                    <customselectionfield change="change" customfield="s" ng-if="s.ControlType == 'Selection'"></customselectionfield>
+                </div>
+                <div>
+                    <div class="form-group" ng-repeat="s in LineItem.Product.Specs | onproperty:[{Property: 'CanSetForLineItem', Value: true}, {Property: 'DefinesVariant', Value: true}]">
+                        <customfilefield customfield="s" ng-if="s.ControlType == 'File'"></customfilefield>
+                        <customtextfield customfield="s" ng-if="s.ControlType == 'Text'"></customtextfield>
+                        <customselectionfield change="change" customfield="s" ng-if="s.ControlType == 'Selection'"></customselectionfield>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <button class="btn btn-primary pull-right" type="submit" ng-click="save()">Save</button>
+                    <button class="btn btn-primary pull-right" type="submit" ng-click="addToOrder()">Submit</button>
+                </div>
+            </form>
+        </div>
     </div>
 </section>
 <section class="product-view-hardhat-pricing">
