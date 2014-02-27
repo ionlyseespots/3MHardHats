@@ -9,8 +9,11 @@ Template: Welcome
 
 }
 
-h1, h2, h3, h4, .text-info {color:#FF0000;}
+h2, .text-info {color:#FF0000;}
 
 .product-view-hardhat-pricing .view-tr  .row [class*="col-"] {
   padding: 0;
 }
+.product-view-hardhat .btn-group .btn {width: 25%;}
+.product-view-hardhat img {max-width: 100% !important;}
+.product-view-hardhat .alert-info {font-size: 12px;}

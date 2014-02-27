@@ -2,6 +2,6 @@
 
 @media (max-width: 767px) {
 
-
+    .product-view-hardhat .btn-group .btn {width: 100%;}
 
 }

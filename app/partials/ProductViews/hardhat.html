@@ -1,813 +1,262 @@
 <section id="451_area_prod_desc" class="container product-view-hardhat">
-    <div class="col-md-7 col-md-offset-1 col-collapse">
-        <div ng-show="LineItem.Product.Description">
-            <!-- PRODUCT DESCRIPTION PANEL! --->
-            <div class="panel panel-primary">
-                <div class="panel-body">
-                    <h4 ng-show="LineItem.Product.ExternalID" class="text-info" style="margin:0;">
-                        {{LineItem.Product.ExternalID}}
-                    </h4>
-                    <p><img ng-src="{{LineItem.Product.SmallImageUrl}}" /></p>
-                    <p ng-bind-html="trustedDescription(LineItem.Product)" />
-                    <p ng-show="LineItem.Variant.Description" ng-bind-html="trustedDescription(LineItem.Variant)" />
+    <div class="col-md-5 col-collapse" ng-hide="!LineItem.Variant.PreviewUrl">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row" style="margin-left: 0; margin-right: 0;">
+                    <div class="col-sm-1 text-center" style="padding: 0;">
+                        <div style="cursor: pointer;" class="fa fa-arrow-left fa-2x" ng-click="changeOrient(1)" />
+                    </div>
+                    <div class="col-sm-10 text-center" style="padding: 0;">
+                        <figure>
+                            <img style="margin: 0 auto; float: none;" ng-src="{{LineItem.Variant.PreviewUrl}}" />
+                        </figure>
+                    </div>
+                    <div class="col-sm-1 text-center" style="padding: 0;">
+                        <div style="cursor: pointer;" class="fa fa-arrow-right fa-2x" ng-click="changeOrient(-1)" />
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <btn class="btn btn-default">Front</btn>
+                    <btn class="btn btn-default">Left</btn>
+                    <btn class="btn btn-default">Right</btn>
+                    <btn class="btn btn-default">Back</btn>
+                </div>
+                <div class="alert alert-warning text-center">
+                    <p class="text-center" style="margin-bottom: 10px;">
+                        <strong>Choose your color</strong>
+                    </p>
+                    <div class="btn-group">
+                        <btn class="btn" style=" background-color: white; " ng-click="changeColor(0)">&nbsp;</btn>
+                        <btn class="btn " style=" background-color: yellow; " ng-click="changeColor(1)">&nbsp;</btn>
+                        <btn class="btn" style=" background-color: blue; " ng-click="changeColor(2)">&nbsp;</btn>
+                        <btn class="btn" style=" background-color: green;" ng-click="changeColor(3)">&nbsp;</btn>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <customfilefield customfield="LineItem.Variant.Specs.LogoFront"></customfilefield>
+                    </div>
+                    <div class="col-sm-6">
+                        <customfilefield customfield="LineItem.Variant.Specs.LogoRight"></customfilefield>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <customfilefield customfield="LineItem.Variant.Specs.LogoLeft"></customfilefield>
+                    </div>
+                    <div class="col-sm-6">
+                        <customfilefield customfield="LineItem.Variant.Specs.LogoBack"></customfilefield>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-2 view-form-icon">
-            <quantityfield required="false" calculated="calcVariantLineItems" lineitem="LineItem" class="quantity" />
-        </div>
-        <div class="col-sm-2">
-            <div  style="border: 1px solid #d6d6d6;text-align: center;height: 52px;" ng-show="LineItem.LineTotal > 0">
-                <small><span class="text-info">Total</span><br /><span class=" text-success">{{LineItem.LineTotal | currency}}</span></small>
-            </div>
-        </div>
-        <div class="col-md-4" ng-hide="!LineItem.Variant.PreviewUrl">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <figure>
-                        <img ng-src="{{LineItem.Variant.PreviewUrl}}" />
-                    </figure>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 col-collapse">
-            <form name="addToOrderForm" novalidate="">
-                <div class="form-group">
-                    <span>Choose your color</span>
-                    <div style="min-width: 50px; min-height: 50px; background-color: white;" ng-click="changeColor(0)">&nbsp;</div>
-                    <div style="min-width: 50px; min-height: 50px; background-color: yellow;" ng-click="changeColor(1)">&nbsp;</div>
-                    <div style="min-width: 50px; min-height: 50px; background-color: blue;" ng-click="changeColor(2)">&nbsp;</div>
-                    <div style="min-width: 50px; min-height: 50px; background-color: green;" ng-click="changeColor(3)">&nbsp;</div>
-                    <p><i class="fa fa-arrow-left fa-4x" ng-click="changeOrient(1)" /></p>
-                    <p><i class="fa fa-arrow-right fa-4x" ng-click="changeOrient(-1)" /></p>
-                    <customfilefield customfield="LineItem.Variant.Specs.LogoFront"></customfilefield>
-                    <customfilefield customfield="LineItem.Variant.Specs.LogoRight"></customfilefield>
-                    <customfilefield customfield="LineItem.Variant.Specs.LogoLeft"></customfilefield>
-                    <customfilefield customfield="LineItem.Variant.Specs.LogoBack"></customfilefield>
-                    <label>Customer Name: </label><customtextfield customfield="LineItem.Variant.Specs.CustomerName"></customtextfield>
-                    <label>Distributor PO#: </label><customtextfield customfield="LineItem.Variant.Specs.DistributorPO"></customtextfield>
-                    <p>Distributor Information:</p>
-                    <label>Name: </label><customtextfield customfield="LineItem.Variant.Specs.DistributorName"></customtextfield>
-                    <label>Contact: </label><customtextfield customfield="LineItem.Variant.Specs.DistributorContact"></customtextfield>
-                    <label>Phone: </label><customtextfield customfield="LineItem.Variant.Specs.DistributorPhone"></customtextfield>
-                    <label>Email: </label><customtextfield customfield="LineItem.Variant.Specs.DistributorEmail"></customtextfield>
-                </div>
-                <div class="panel-footer">
-                    <button class="btn btn-primary pull-right" type="submit" ng-click="save()">Save</button>
-                    <button class="btn btn-primary pull-right" type="submit" ng-click="addToOrder()">Submit</button>
-                </div>
-            </form>
         </div>
     </div>
-</section>
-<section class="product-view-hardhat-pricing">
-    <div>
-        <h3>3M Hard Hat Custom Logo Imprint & Scotchlite Reflective Striping</h3>
-        <h4>Suggested List Price Page</h4>
-        <h5>Effective: June 11, 2013</h5>
-        <h6>Custom Logo</h6>
-        <p>
-            Imprint Charges for 3M H-700 Series and H-800 Series Hard Hats.<br />
-            Costs are added to the base price of the hat. Must order in case quantities.<br />
-        </p>
-        <div class="col-xs-12 view-tr">
-            <div class="row">
-                <div class="col-sm-2">Number of Locations</div>
-                <div class="col-sm-10">
-                    <div class="row">
-                        <div class="col-sm-4">Price Per</div>
-                        <div class="col-sm-8">
+    <div class="col-md-6 col-md-offset-1 col-collapse">
+        <h2 ng-show="LineItem.Product.ExternalID" style="margin:0;">
+            {{LineItem.Product.ExternalID}}
+        </h2>
+        <div ng-show="LineItem.Product.Description">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title panel-primary">
+                        Description
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <p ng-bind-html="trustedDescription(LineItem.Product)" />
+                    <p ng-show="LineItem.Variant.Description" ng-bind-html="trustedDescription(LineItem.Variant)" />
+                    <btn ng-hide="pricingSection == 'open'" ng-click="pricingSection = 'open'" class="btn btn-default">View Pricing</btn>
+                    <btn ng-show="pricingSection == 'open'" ng-click="pricingSection = 'closed'" class="btn btn-default">Hide Pricing</btn>
+                    <hr />
+                    <div ng-show="pricingSection == 'open'" class="product-view-hardhat-pricing">
+                        <p>
+                            <strong>NOTE:</strong>
+                            * Case Size is 20 hard hats<br />
+                            ** Artwork Conversion Fee $ 100.<br />
+                            *** For initial orders of a given logo, a one-time set-up charge will be applied to the order. The set-up charges are below:
+                        </p>
+                        <div class="col-sm-12 view-tr">
                             <div class="row">
-                                <div class="col-sm-12">Quantity</div>
+                                <div class="col-sm-8">
+                                    1 color logo:
+                                </div>
+                                <div class="col-sm-4">
+                                    $75.00
+                                </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-3">1 Case <br /> 20 Each</div>
-                                <div class="col-sm-3">2 Cases  <br /> 40 Each</div>
-                                <div class="col-sm-3">3 - 4 Cases  <br /> 60-80 Each</div>
-                                <div class="col-sm-3">5+ Cases  <br /> 100 +</div>
+                                <div class="col-sm-8">
+                                    2 color logo:
+                                </div>
+                                <div class="col-sm-4">
+                                    $100.00
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    3 color logo:
+                                </div>
+                                <div class="col-sm-4">
+                                    $125.00
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    4 color logo:
+                                </div>
+                                <div class="col-sm-4">
+                                    $150.00
+                                </div>
                             </div>
                         </div>
+                        <h3>3M Hard Hat Custom Logo Imprint & Scotchlite Reflective Striping</h3>
+                        <h4>Suggested List Price Page</h4>
+                        <h5>Effective: June 11, 2013</h5>
+                        <h6>Custom Logo</h6>
+                        <p>
+                            Imprint Charges for 3M H-700 Series and H-800 Series Hard Hats.<br />
+                            Costs are added to the base price of the hat. Must order in case quantities.<br />
+                        </p>
+                        <div class="col-xs-12 view-tr">
+                            <div class="row">
+                                <div class="col-sm-2">Number of Locations</div>
+                                <div class="col-sm-10">
+                                    <div class="row">
+                                        <div class="col-sm-4">Price Per</div>
+                                        <div class="col-sm-8">
+                                            <div class="row">
+                                                <div class="col-sm-12">Quantity</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-3">1 Case <br /> 20 Each</div>
+                                                <div class="col-sm-3">2 Cases  <br /> 40 Each</div>
+                                                <div class="col-sm-3">3 - 4 Cases  <br /> 60-80 Each</div>
+                                                <div class="col-sm-3">5+ Cases  <br /> 100 +</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2">1 color per location</div>
+                                <div class="col-sm-10">
+                                    <div class="row">
+                                        <div class="col-sm-4">Case</div>
+                                        <div class="col-sm-2">$145.00</div>
+                                        <div class="col-sm-2">$120.00</div>
+                                        <div class="col-sm-2">$95.00</div>
+                                        <div class="col-sm-2">$60.00</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-4">Each</div>
+                                        <div class="col-sm-2">$7.25</div>
+                                        <div class="col-sm-2">$6.00</div>
+                                        <div class="col-sm-2">$4.75</div>
+                                        <div class="col-sm-2">$3.00</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2">2 color per location</div>
+                                <div class="col-sm-10">
+                                    <div class="row">
+                                        <div class="col-sm-4">Case</div>
+                                        <div class="col-sm-2">$165.00</div>
+                                        <div class="col-sm-2">$140.00</div>
+                                        <div class="col-sm-2">$115.00</div>
+                                        <div class="col-sm-2">$80.00</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-4">Each</div>
+                                        <div class="col-sm-2">$8.25</div>
+                                        <div class="col-sm-2">$7.00</div>
+                                        <div class="col-sm-2">$5.75</div>
+                                        <div class="col-sm-2">$4.00</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2">3 color per location</div>
+                                <div class="col-sm-10">
+                                    <div class="row">
+                                        <div class="col-sm-4">Case</div>
+                                        <div class="col-sm-2">$185.00</div>
+                                        <div class="col-sm-2">$160.00</div>
+                                        <div class="col-sm-2">$135.00</div>
+                                        <div class="col-sm-2">$100.00</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-4">Each</div>
+                                        <div class="col-sm-2">$9.25</div>
+                                        <div class="col-sm-2">$8.00</div>
+                                        <div class="col-sm-2">$6.75</div>
+                                        <div class="col-sm-2"> $5.00</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2">4 color per location</div>
+                                <div class="col-sm-10">
+                                    <div class="row">
+                                        <div class="col-sm-4">Case</div>
+                                        <div class="col-sm-2">$205.00</div>
+                                        <div class="col-sm-2">$180.00</div>
+                                        <div class="col-sm-2">$155.00</div>
+                                        <div class="col-sm-2">$120.00</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-4">Each</div>
+                                        <div class="col-sm-2">$10.25</div>
+                                        <div class="col-sm-2"> $9.00</div>
+                                        <div class="col-sm-2">$7.75</div>
+                                        <div class="col-sm-2">$6.00</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2">1 color per location</div>
-                <div class="col-sm-10">
-                    <div class="row">
-                        <div class="col-sm-4">Case</div>
-                        <div class="col-sm-2">$145.00</div>
-                        <div class="col-sm-2">$120.00</div>
-                        <div class="col-sm-2">$95.00</div>
-                        <div class="col-sm-2">$60.00</div>
+                    <div class="view-form-icon">
+                        <quantityfield required="false" calculated="calcVariantLineItems" lineitem="LineItem" class="quantity" />
                     </div>
-                    <div class="row">
-                        <div class="col-sm-4">Each</div>
-                        <div class="col-sm-2">$7.25</div>
-                        <div class="col-sm-2">$6.00</div>
-                        <div class="col-sm-2">$4.75</div>
-                        <div class="col-sm-2">$3.00</div>
+                    <div style="border: 1px solid #d6d6d6;text-align: center;height: 52px;" ng-show="LineItem.LineTotal > 0">
+                        <small><span class="text-info">Total</span><br /><span class=" text-success">{{LineItem.LineTotal | currency}}</span></small>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2">2 color per location</div>
-                <div class="col-sm-10">
-                    <div class="row">
-                        <div class="col-sm-4">Case</div>
-                        <div class="col-sm-2">$165.00</div>
-                        <div class="col-sm-2">$140.00</div>
-                        <div class="col-sm-2">$115.00</div>
-                        <div class="col-sm-2">$80.00</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4">Each</div>
-                        <div class="col-sm-2">$8.25</div>
-                        <div class="col-sm-2">$7.00</div>
-                        <div class="col-sm-2">$5.75</div>
-                        <div class="col-sm-2">$4.00</div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2">3 color per location</div>
-                <div class="col-sm-10">
-                    <div class="row">
-                        <div class="col-sm-4">Case</div>
-                        <div class="col-sm-2">$185.00</div>
-                        <div class="col-sm-2">$160.00</div>
-                        <div class="col-sm-2">$135.00</div>
-                        <div class="col-sm-2">$100.00</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4">Each</div>
-                        <div class="col-sm-2">$9.25</div>
-                        <div class="col-sm-2">$8.00</div>
-                        <div class="col-sm-2">$6.75</div>
-                        <div class="col-sm-2"> $5.00</div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2">4 color per location</div>
-                <div class="col-sm-10">
-                    <div class="row">
-                        <div class="col-sm-4">Case</div>
-                        <div class="col-sm-2">$205.00</div>
-                        <div class="col-sm-2">$180.00</div>
-                        <div class="col-sm-2">$155.00</div>
-                        <div class="col-sm-2">$120.00</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4">Each</div>
-                        <div class="col-sm-2">$10.25</div>
-                        <div class="col-sm-2"> $9.00</div>
-                        <div class="col-sm-2">$7.75</div>
-                        <div class="col-sm-2">$6.00</div>
-                    </div>
+                    <form name="addToOrderForm" novalidate="">
+                        <div class="form-group view-form-icon" style="margin-top: 35px;">
+                            <div>
+                                <label class="required">Customer Name</label>
+                                <customtextfield customfield="LineItem.Variant.Specs.CustomerName"></customtextfield>
+                            </div>
+                            <div>
+                                <label>Distributor PO#</label>
+                                <customtextfield customfield="LineItem.Variant.Specs.DistributorPO"></customtextfield>
+                            </div>
+                            <hr />
+                            <p>
+                                Distributor Information
+                            </p>
+                            <div>
+                                <label>Name</label>
+                                <customtextfield customfield="LineItem.Variant.Specs.DistributorName"></customtextfield>
+                            </div>
+                            <div>
+                                <label>Contact</label>
+                                <customtextfield customfield="LineItem.Variant.Specs.DistributorContact"></customtextfield>
+                            </div>
+                            <div>
+                                <label>Phone</label>
+                                <customtextfield customfield="LineItem.Variant.Specs.DistributorPhone"></customtextfield>
+                            </div>
+                            <div>
+                                <label>Email</label>
+                                <customtextfield customfield="LineItem.Variant.Specs.DistributorEmail"></customtextfield>
+                            </div>
+                        </div>
+                        <button class="btn btn-success btn-block btn-lg"  type="submit" ng-click="addToOrder()">Submit</button>
+                    </form>
                 </div>
             </div>
         </div>
-        <p>
-            <strong>NOTE:</strong>
-            * Case Size is 20 hard hats<br />
-            ** Artwork Conversion Fee $ 100.<br />
-            *** For initial orders of a given logo, a one-time set-up charge will be applied to the order. The set-up charges are below:
-        </p>
-        <div class="col-sm-12 view-tr">
-            <div class="row">
-                <div class="col-sm-8">
-                    1 color logo:
-                </div>
-                <div class="col-sm-4">
-                    $75.00
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-8">
-                    2 color logo:
-                </div>
-                <div class="col-sm-4">
-                    $100.00
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-8">
-                    3 color logo:
-                </div>
-                <div class="col-sm-4">
-                    $125.00
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-8">
-                    4 color logo:
-                </div>
-                <div class="col-sm-4">
-                    $150.00
-                </div>
-            </div>
-        </div>
-        <p>
-            Scotchlite™ Reflective Striping<br />
-            For 3M H-700 Series and H-800 Series Hard Hats. Must order in case quantities.
-        </p>
-        <div class="col-sm-12 view-tr">
-            <div class="row">
-                <div class="col-sm-12">
-                    Reflective Pricing
-                </div>
-                <div class="col-sm-12">
-                    $160.00 per case, suggested list price
-                </div>
-            </div>
-        </div>
-        <p>
-            <strong>3M Hard Hat H-700 and H-800 Series Custom Logo</strong><br />
-            Suggested List Price Page
-        </p>
-        <div class="col-sm-12">
-            <div class="row">
-                <div class="col-sm-3">Effective: Feb 11, 2013</div>
-                <div class="col-sm-6">**Price of Hard Hat only. Additional imprint charges will apply</div>
-                <div class="col-sm-3">*The 3M Billing Unit is Case</div>
-            </div>
-        </div>
-
-        <div class="col-sm-12 view-tr">
-            <div class="row">
-                <div class="col-sm-1">Product <br /> Number</div>
-                <div class="col-sm-2">3M Stock ID <br /> Number</div>
-                <div class="col-sm-5">H-700 <br /> Description</div>
-                <div class="col-sm-1">Case <br /> Qty</div>
-                <div class="col-sm-1">Each <br /> Price</div>
-                <div class="col-sm-2">** Case Price <br /> (Sugg List)</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-701PL</div>
-                <div class="col-sm-2">70-0715-7844-0</div>
-                <div class="col-sm-5">3M™ Hard Hat H-701PL, 4-Point Pinlock Suspension, White-LOGO 20 ea/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$6.75</div>
-                <div class="col-sm-2">$135.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-702PL</div>
-                <div class="col-sm-2">70-0715-7845-7</div>
-                <div class="col-sm-5">3M™ Hard Hat H-702PL, 4-Point Pinlock Suspension, Yellow 20 ea/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$6.75</div>
-                <div class="col-sm-2">$135.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-703PL</div>
-                <div class="col-sm-2">70-0715-7846-5</div>
-                <div class="col-sm-5">3M™ Hard Hat H-703PL, 4-Point Pinlock Suspension, Blue-LOGO 20 ea/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$6.75</div>
-                <div class="col-sm-2">$135.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-704PL</div>
-                <div class="col-sm-2">70-0715-7847-3</div>
-                <div class="col-sm-5">3M™ Hard Hat H-704PL, 4-Point Pinlock Suspension, Green-LOGO 20 ea/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$6.75</div>
-                <div class="col-sm-2">$135.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-705PL</div>
-                <div class="col-sm-2">70-0715-7848-1</div>
-                <div class="col-sm-5">3M™ Hard Hat H-705PL, 4-Point Pinlock Suspension, Red-LOGO 20 ea/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$6.75</div>
-                <div class="col-sm-2">$135.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-706PL</div>
-                <div class="col-sm-2">70-0715-7849-9</div>
-                <div class="col-sm-5">3M™ Hard Hat H-706PL, 4-Point Pinlock Suspension, Orange-LOGO 20 ea/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$6.75</div>
-                <div class="col-sm-2">$135.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-707PL</div>
-                <div class="col-sm-2">70-0715-7850-7</div>
-                <div class="col-sm-5">3M™ Hard Hat H-707PL, 4-Point Pinlock Suspension, Bright Orange-LOGO 20 ea/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$6.75</div>
-                <div class="col-sm-2">$135.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-708PL</div>
-                <div class="col-sm-2">H-708PL 70-0715-7851-5</div>
-                <div class="col-sm-5">3M™ Hard Hat H-708PL, 4-Point Pinlock Suspension, Gray-LOGO 20 ea/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$6.75</div>
-                <div class="col-sm-2">$135.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-709PL</div>
-                <div class="col-sm-2">70-0715-7852-3</div>
-                <div class="col-sm-5">3M™ Hard Hat H-709PL, 4-Point Pinlock Suspension, Bright Yellow-LOGO 20 ea/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$6.75</div>
-                <div class="col-sm-2">$135.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-710PL</div>
-                <div class="col-sm-2">70-0715-7853-1</div>
-                <div class="col-sm-5">3M™ Hard Hat H-710PL, 4-Point Pinlock Suspension, Navy Blue-LOGO 20 ea/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$6.75</div>
-                <div class="col-sm-2">$135.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-701RL</div>
-                <div class="col-sm-2">70-0715-7854-9</div>
-                <div class="col-sm-5">3M™ Hard Hat H-701RL, 4-Point Ratchet Suspension, White-LOGO 20 ea/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$10.25</div>
-                <div class="col-sm-2">$205.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-702RL</div>
-                <div class="col-sm-2">70-0715-7855-6</div>
-                <div class="col-sm-5">3M™ Hard Hat H-702RL, 4-Point Ratchet Suspension, Yellow-LOGO 20 ea/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$10.25</div>
-                <div class="col-sm-2">$205.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-703RL</div>
-                <div class="col-sm-2">70-0715-7856-4</div>
-                <div class="col-sm-5">3M™ Hard Hat H-703RL, 4-Point Ratchet Suspension, Blue-LOGO 20 ea/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$10.25</div>
-                <div class="col-sm-2">$205.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-704RL</div>
-                <div class="col-sm-2">70-0715-7857-2</div>
-                <div class="col-sm-5">3M™Hard Hat H-704RL, 4-Point Ratchet Suspension, Green-LOGO 20 ea/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$10.25</div>
-                <div class="col-sm-2">$205.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-705RL</div>
-                <div class="col-sm-2">70-0715-7858-0</div>
-                <div class="col-sm-5">3M™ Hard Hat H-705RL, 4-Point Ratchet Suspension, Red-LOGO 20 ea/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$10.25</div>
-                <div class="col-sm-2">$205.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-706RL</div>
-                <div class="col-sm-2">70-0715-7859-8</div>
-                <div class="col-sm-5">3M™ Hard Hat H-706RL, 4-Point Ratchet Suspension, Orange-LOGO 20 ea/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$10.25</div>
-                <div class="col-sm-2">$205.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-707RL</div>
-                <div class="col-sm-2">70-0715-7860-6</div>
-                <div class="col-sm-5">3M™ Hard Hat H-707RL, 4-Point Ratchet Suspension, Bright Orange-LOGO 20 ea/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$10.25</div>
-                <div class="col-sm-2">$205.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-708RL</div>
-                <div class="col-sm-2">70-0716-1150-6</div>
-                <div class="col-sm-5">3M™ Hard Hat H-708RL, 4-Point Ratchet Suspension, Gray-LOGO 20 ea/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$10.25</div>
-                <div class="col-sm-2">$205.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-709RL</div>
-                <div class="col-sm-2">70-0716-1151-4</div>
-                <div class="col-sm-5">3M™ Hard Hat H-709RL, 4-Point Ratchet Suspension, Bright Yellow-LOGO 20 ea/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$10.25</div>
-                <div class="col-sm-2">$205.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-710RL</div>
-                <div class="col-sm-2">70-0716-1152-2</div>
-                <div class="col-sm-5">3M™ Hard Hat H-710RL, 4-Point Ratchet Suspension, Navy Blue-LOGO 20 ea/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$10.25</div>
-                <div class="col-sm-2">$205.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-701VL</div>
-                <div class="col-sm-2">70-0716-1153-0</div>
-                <div class="col-sm-5">3M™ Hard Hat H-701VL, Vented 4-Point Ratchet Suspension, White-LOGO 20 ea/css</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$11.00</div>
-                <div class="col-sm-2">$220.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-702VL</div>
-                <div class="col-sm-2">70-0716-1154-8</div>
-                <div class="col-sm-5">3M™ Hard Hat H-702VL, Vented 4-Point Ratchet Suspension, Yellow-LOGO20 ea/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$11.00</div>
-                <div class="col-sm-2">$220.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-703VL</div>
-                <div class="col-sm-2">70-0716-1155-5</div>
-                <div class="col-sm-5">3M™ Hard Hat H-703VL, Vented 4-Point Ratchet Suspension, Blue-LOGO 20 ea/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$11.00</div>
-                <div class="col-sm-2">$220.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-704VL</div>
-                <div class="col-sm-2">70-0716-1156-3</div>
-                <div class="col-sm-5">3M™ Hard Hat H-704VL, Vented 4-Point Ratchet Suspension, Green-LOGO 20 ea/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$11.00</div>
-                <div class="col-sm-2">$220.00</div>
-            </div>
-        </div>
-        <hr />
-        <div class="col-sm-12 view-tr">
-            <div class="row">
-                <div class="col-sm-1">Product <br /> Number</div>
-                <div class="col-sm-2">Stock ID <br /> Number</div>
-                <div class="col-sm-5">H-800 <br /> Description</div>
-                <div class="col-sm-1">Case <br /> Qty</div>
-                <div class="col-sm-1">* Price <br /> Per</div>
-                <div class="col-sm-2">Sugg. <br /> List Price</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-801RL</div>
-                <div class="col-sm-2">70-0716-4802-9</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-801RL, White 4-Point Ratchet Suspension, 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$15.50</div>
-                <div class="col-sm-2">$310.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-802RL</div>
-                <div class="col-sm-2">70-0716-4803-7</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-802RL, Yellow 4-Point Ratchet Suspension, 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$15.50</div>
-                <div class="col-sm-2">$310.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-803RL</div>
-                <div class="col-sm-2">70-0716-4804-5</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-803RL, Blue 4-Point Ratchet Suspension, 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$15.50</div>
-                <div class="col-sm-2">$310.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-804RL</div>
-                <div class="col-sm-2">70-0716-4805-2</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-804RL, Green 4-Point Ratchet Suspension, 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$15.50</div>
-                <div class="col-sm-2">$310.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-805RL</div>
-                <div class="col-sm-2">0071648060</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-805RL, Red 4-Point Ratchet Suspension, 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$15.50</div>
-                <div class="col-sm-2">$310.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-806RLL</div>
-                <div class="col-sm-2">70071648078</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-806RL, Orange 4-Point Ratchet Suspension, 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$15.50</div>
-                <div class="col-sm-2">$310.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-807RL</div>
-                <div class="col-sm-2">70071648086</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-807RL, Hi-Vis Orange 4-Point Ratchet Suspension, 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$15.50</div>
-                <div class="col-sm-2">$310.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-808RL</div>
-                <div class="col-sm-2">70071648094</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-808RL, Gray 4-Point Ratchet Suspension, 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$15.50</div>
-                <div class="col-sm-2">$310.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-809RL</div>
-                <div class="col-sm-2">70071648102</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-809R, Hi-Vis Yellow 4-Point Ratchet Suspension, 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$15.50</div>
-                <div class="col-sm-2">$310.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-810RL</div>
-                <div class="col-sm-2">70071648110</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-810R, Navy Blue 4-Point Ratchet Suspension, 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$15.50</div>
-                <div class="col-sm-2">$310.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-811RL</div>
-                <div class="col-sm-2">70071648128</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-811R, Tan 4-Point Ratchet Suspension, 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$15.50</div>
-                <div class="col-sm-2">$310.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-801VL</div>
-                <div class="col-sm-2">70071648136</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-801V, White 4-Point Ratchet Suspension, Vented, 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$15.50</div>
-                <div class="col-sm-2">$310.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-802VL</div>
-                <div class="col-sm-2">70071648144</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-802V, Yellow 4-Point Ratchet Suspension, Vented, 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$16.25</div>
-                <div class="col-sm-2">$325.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-803VL</div>
-                <div class="col-sm-2">70071648151</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-803V, Blue 4-Point Ratchet Suspension, Vented, 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$16.25</div>
-                <div class="col-sm-2">$325.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-804VL</div>
-                <div class="col-sm-2">70071648169</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-804V, Green 4-Point Ratchet Suspension, Vented, 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$16.25</div>
-                <div class="col-sm-2">$325.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-805VL</div>
-                <div class="col-sm-2">70071648177</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-805V, Red 4-Point Ratchet Suspension, Vented, 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$16.25</div>
-                <div class="col-sm-2">$325.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-806VL</div>
-                <div class="col-sm-2">70071648185</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-806V, Orange 4-Point Ratchet Susp, Vented, 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$16.25</div>
-                <div class="col-sm-2">$325.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-807VL</div>
-                <div class="col-sm-2">70071648193</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-807V, Hi-Vis Orange 4-Point Ratchet Susp, Vented, 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$16.25</div>
-                <div class="col-sm-2">$325.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-808VL</div>
-                <div class="col-sm-2">700716482013</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-808V, Gray 4-Point Ratchet Suspension, Vented, 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$16.25</div>
-                <div class="col-sm-2">$325.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-809VL</div>
-                <div class="col-sm-2">70071648219</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-809V, Hi-Vis Yellow 4-Point Ratchet Susp, Vented, 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$16.25</div>
-                <div class="col-sm-2">$325.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-810VL</div>
-                <div class="col-sm-2">700716482279</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-810V, Navy Blue 4-Point Ratchet Susp, Vented, 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$16.25</div>
-                <div class="col-sm-2">$325.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-811VL</div>
-                <div class="col-sm-2">70071648235</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-811V, Tan 4-Point Ratchet Suspension, Vented, 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$16.25</div>
-                <div class="col-sm-2">$325.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-801R-UVL</div>
-                <div class="col-sm-2">70071648243</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-801R-UV, White 4-Point Ratchet Suspension , 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$18.00</div>
-                <div class="col-sm-2">$360.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-803R-UVL</div>
-                <div class="col-sm-2">70071648268</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-803R-UV, Blue 4-Point Ratchet Suspension , 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$18.00</div>
-                <div class="col-sm-2">$360.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-804R-UVL</div>
-                <div class="col-sm-2">70071648276</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-804R-UV, Green 4-Point Ratchet Suspension , 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$18.00</div>
-                <div class="col-sm-2">$360.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-805R-UVL</div>
-                <div class="col-sm-2">70071648284</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-805R-UV, Red 4-Point Ratchet Suspension , 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$18.00</div>
-                <div class="col-sm-2">$360.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-806R-UVL</div>
-                <div class="col-sm-2">70071648292</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-806R-UV, Orange 4-Point Ratchet Suspension , 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$18.00</div>
-                <div class="col-sm-2">$360.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-807R-UVL</div>
-                <div class="col-sm-2">70071648300</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-807R-UV, Hi-Vis Orange 4-Point Ratchet Susp, 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$18.00</div>
-                <div class="col-sm-2">$360.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-808R-UVL</div>
-                <div class="col-sm-2">70071648318</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-808R-UV, Gray 4-Point Ratchet Suspension , 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$18.00</div>
-                <div class="col-sm-2">$360.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-809R-UVL</div>
-                <div class="col-sm-2">70071648326</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-809R-UV, Hi-Vis Yellow 4-Point Ratchet Susp, 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$18.00</div>
-                <div class="col-sm-2">$360.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-810R-UVL</div>
-                <div class="col-sm-2">70071648334</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-810R-UV, Navy Blue 4-Point Ratchet Suspension , 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$18.00</div>
-                <div class="col-sm-2">$360.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-811R-UVL</div>
-                <div class="col-sm-2">70071648342</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-811R-UV, Tan 4-Point Ratchet Suspension , 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$18.00</div>
-                <div class="col-sm-2">$360.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-801V-UVL</div>
-                <div class="col-sm-2">70071648359</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-801V-UV, White 4-Point Ratchet Susp, Vented , 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$18.75</div>
-                <div class="col-sm-2">$375.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-802V-UVL</div>
-                <div class="col-sm-2">70071648367</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-802V-UV, Yellow 4-Point Ratchet Susp, Vented , 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$18.75</div>
-                <div class="col-sm-2">$375.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-803V-UVL</div>
-                <div class="col-sm-2">70071648375</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-803V-UV, Blue 4-Point Ratchet Susp, Vented , 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$18.75</div>
-                <div class="col-sm-2">$375.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-804V-UVL</div>
-                <div class="col-sm-2">700716483835</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-804V-UV, Green 4-Point Ratchet Susp, Vented , 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$18.75</div>
-                <div class="col-sm-2">$375.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-805V-UVL</div>
-                <div class="col-sm-2">70071648391</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-805V-UV, Red 4-Point Ratchet Susp, Vented, 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$18.75</div>
-                <div class="col-sm-2">$375.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-806V-UVL</div>
-                <div class="col-sm-2">70071648409</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-806V-UV, Orange 4-Point Ratchet Susp, Vented, 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$18.75</div>
-                <div class="col-sm-2">$375.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-807V-UVL</div>
-                <div class="col-sm-2">70071648417</div>
-                <div class="col-sm-5">3M™H-800 Series,Full Brim Hard Hat H-807V-UV, Hi-Vis Orange 4-Pt Ratchet Susp, Vented, 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$18.75</div>
-                <div class="col-sm-2">$375.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-808V-UVL</div>
-                <div class="col-sm-2">70071648425</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-808V-UV, Gray 4-Point Ratchet Susp, Vented , 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$18.75</div>
-                <div class="col-sm-2">$375.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-809V-UVL</div>
-                <div class="col-sm-2">70071648433</div>
-                <div class="col-sm-5">3M™H-800 Series,Full Brim Hard Hat H-809V-UV, Hi-Vis Yellow 4-Pt Ratchet Susp, Vented , 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$18.75</div>
-                <div class="col-sm-2">$375.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-810V-UVL</div>
-                <div class="col-sm-2">70071648441</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-810V-UV, Navy Blue 4-Point Ratchet Susp, Vented, 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$18.75</div>
-                <div class="col-sm-2">$375.00</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-1">H-811V-UVL</div>
-                <div class="col-sm-2">70071648458</div>
-                <div class="col-sm-5">3M™H-800 Series, Full Brim Hard Hat H-811V-UV, Tan 4-Point Ratchet Susp, Vented, 20/cs</div>
-                <div class="col-sm-1">20</div>
-                <div class="col-sm-1">$18.75</div>
-                <div class="col-sm-2">$375.00</div>
-            </div>
-        </div>
-        <hr />
-        <p>
-            <strong>Important Notice:</strong> WARRANTY: 3M will replace or refund the purchase price of any Personal Safety Division (OH&ESD) product found to be
-            defective in material, manufacture, or not in conformance with any express warranty. This warranty is exclusive and is in lieu of any implied
-            warranty of merchantability or fitness for a particular purpose. LIMITATION OF LIABILITY: Except as provided above, 3M shall not be liable
-            or responsible for any loss or damage, whether direct, indirect, incidental, special or consequential arising out of the sale, use or misuse of
-            3M PSD products, or the user’s inability to use such products. THESE REMEDIES SET FORTH HEREIN ARE EXCLUSIVE.
-        </p>
-        <p>
-            <strong>For More Information</strong><br />
-            Customer Service 1-800-328-1667<br />
-            Technical Service 1-800-243-4630<br />
-            Website 3m.com/PPESafety<br />
-        </p>
-        <p>
-            <strong>3M Personal Safety Division</strong><br />
-            3M Center, Building 0235-02-W-70<br />
-            St. Paul, MN 55144-1000<br />
-        </p>
     </div>
 </section>
